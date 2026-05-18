@@ -290,9 +290,17 @@ function WeekList({
   return (
     <div className="px-4 py-3 space-y-2">
       {weeks.map((week) => (
-        <button
+        <div
           key={week.weekStart}
+          role="button"
+          tabIndex={0}
           onClick={() => onSelect(week)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              onSelect(week);
+            }
+          }}
           className="w-full text-left bg-white rounded-lg border border-border p-3 hover:border-text-muted transition-colors cursor-pointer"
         >
           <div className="flex items-center justify-between mb-1">
@@ -323,7 +331,7 @@ function WeekList({
               Mark as submitted
             </button>
           )}
-        </button>
+        </div>
       ))}
     </div>
   );
